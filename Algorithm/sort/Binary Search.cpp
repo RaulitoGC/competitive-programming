@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <windows.h>
 using namespace std;
 
 #define debug(x) cout<<#x<<" : "<<x<<"\n"
@@ -41,31 +42,34 @@ bool conditionMin(ll mid, ll value){
 
 int bsMin(int min ,int max, ll value){
 	ll mid = 0;
-	while(V[max] - V[min] > 1){
+	while(max-min > 1) {
 		mid = (max + min)/2;
 		debug2(min,max);
 		debug(mid);
 		if(conditionMin(mid,value)) min =  mid;
 		else max = mid;
 	}
+	
 	return min;
 }
 
 int bsMax(int min ,int max, ll value){
 	ll mid = 0;
-	while(V[max] - V[min] > 1){
+	while(max - min > 1){
 		mid = (max + min)/2;
 		debug2(min,max);
 		debug(mid);
 		if(conditionMax(mid,value)) max =  mid;
 		else min = mid;
 	}
+	
+	if(min + 1 == max) return -1;
 	return max;
 }
 
 int bsEquals(int min ,int max, ll value){
 	ll mid = 0;
-	while(V[max] - V[min] > 1){
+	while(max - min > 1){
 		mid = (max + min)/2;
 		debug2(min,max);
 		debug(mid);
@@ -73,6 +77,7 @@ int bsEquals(int min ,int max, ll value){
 		
 		if(conditionMin(mid,value)) min = mid;
 		else max = mid;
+		
 	}
 	return -1;
 }
@@ -83,14 +88,14 @@ int main(){
 	V[1] = 2;
 	V[2] = 3;
 	V[3] = 4;
-	V[4] = 5;
-	V[5] = 6;
-	V[6] = 7;
-	V[7] = 8;
+	V[4] = 6;
+	V[5] = 7;
+	V[6] = 8;
+	V[7] = 9;
 	
-	cout << V[bsMax(0,7,4)] << endl;
+	//cout << V[bsMax(0,7,4)] << endl;
 	cout << V[bsMin(0,7,4)] << endl;
-	cout << V[bsEquals(0,7,3)] << endl;
+	//cout << V[bsEquals(0,7,5)] << endl;
 	
 	return 0;
 }
