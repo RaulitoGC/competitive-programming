@@ -22,23 +22,51 @@ typedef long long ll;
 typedef long double ld;
 typedef unsigned long long ull;
 
-int main(){
+void printArray(ll V[], ll n){
 
-	int R,N,i;
-	double res;
-	i = 1;
-	while(cin>>R>>N){
-		if(!N && !R) break;
-		
-	
-		if(N+26*N < R){
-			printf("Case %d: impossible\n",i);	
-		}else{
-			res = ceil((R-N)*1.0/N);
-			printf("Case %d: %d\n",i,(int)res);	
-		}
-		i++;
-	}	
-	return 0;
+	for(ll i = 0 ; i< n; i++){
+		cout << V[i] << " ";
+	}
+	cout << endl;
 }
 
+int main(){
+	
+	ll n,l,dStart,dEnd;
+	double result;
+	while(cin >> n >> l ){
+		
+		ll L[n],D[n-1];
+		for(int i=0; i<n ;i++){
+			cin >> L[i];
+		}
+		sort(L, L + n);
+		
+		dStart = L[0];
+		dEnd = l - L[n-1];
+		
+		if(n == 1){
+			result = max(dStart,dEnd)*1.0;
+			printf("%.10lf\n",result);
+	
+		}else{
+			for(int i=0; i<n-1;i++){
+				D[i] =  abs(L[i+1] - L[i]);
+			}
+			
+			sort(D, D + n - 1);
+			
+			if(2*max(dStart,dEnd) > D[n-2]){
+				
+				result = max(dStart,dEnd)*1.0;		
+			}else{
+				result = D[n-2]*1.0/2.0;
+				
+			} 
+			
+			printf("%.10lf\n",result);	
+		}
+		
+	}
+	return 0;
+}

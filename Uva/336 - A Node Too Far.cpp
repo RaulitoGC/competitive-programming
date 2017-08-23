@@ -24,21 +24,10 @@ typedef unsigned long long ull;
 
 int main(){
 
-	int R,N,i;
-	double res;
-	i = 1;
-	while(cin>>R>>N){
-		if(!N && !R) break;
-		
-	
-		if(N+26*N < R){
-			printf("Case %d: impossible\n",i);	
-		}else{
-			res = ceil((R-N)*1.0/N);
-			printf("Case %d: %d\n",i,(int)res);	
-		}
-		i++;
-	}	
+	int T,i;
+	read(T);
+	while(T--){
+
+	}
 	return 0;
 }
-
