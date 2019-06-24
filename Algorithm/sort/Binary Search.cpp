@@ -57,8 +57,6 @@ int bsMax(int min ,int max, ll value){
 	ll mid = 0;
 	while(max - min > 1){
 		mid = (max + min)/2;
-		debug2(min,max);
-		debug(mid);
 		if(conditionMax(mid,value)) max =  mid;
 		else min = mid;
 	}
@@ -67,19 +65,21 @@ int bsMax(int min ,int max, ll value){
 	return max;
 }
 
-int bsEquals(int min ,int max, ll value){
-	ll mid = 0;
-	while(max - min > 1){
-		mid = (max + min)/2;
-		debug2(min,max);
-		debug(mid);
-		if(conditionEquals(mid,value)) return mid;
-		
-		if(conditionMin(mid,value)) min = mid;
-		else max = mid;
-		
-	}
-	return -1;
+int bsEquals(int left ,int right, ll value){
+
+    ll mid;
+    while(right - left > 1){
+        mid = (right+left)/2;
+        if(conditionEquals(mid,target)) return mid;
+
+        if(conditionMin(mid,target)) right = mid;
+        else left = mid;
+    }
+
+    if(target == nums[left]) return left;
+    if(target == nums[right]) return right;
+
+    return -1;
 }
 
 int main(){
