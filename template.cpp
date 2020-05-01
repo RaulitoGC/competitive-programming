@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include <windows.h>
+#include <unistd.h>
 using namespace std;
 
 #define debug(x) cout<<#x<<" : "<<x<<"\n"
