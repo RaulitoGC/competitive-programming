@@ -10,29 +10,32 @@
 class Solution {
 public:
   
-    TreeNode* buildTreeUtil( vector<int>& preorder, int* preIndex, int key, int min, int max, int size ) {  
-      if( *preIndex >= size )  
-        return NULL;  
-      
-      TreeNode* root = NULL;  
-  
-      if( key > min && key < max ){  
-          root = new TreeNode(key);  
-          *preIndex = *preIndex + 1;
-          if (*preIndex < size) {  
-              root->left = buildTreeUtil( preorder, preIndex, preorder[*preIndex], min, key, size );
-              if(*preIndex < size){
-                root->right = buildTreeUtil( preorder, preIndex, preorder[*preIndex], key, max, size );  
-              }
-              
-          }  
-      }  
-      return root;  
+    TreeNode* getBst( vector<int>& preorder, int left, int right){
+        
+        if( left > right) return NULL;
+
+        TreeNode* node = new TreeNode(preorder[left]);
+        int i = left + 1;
+        
+        for(; i < preorder.size() ; i++){
+            if(node->val <= preorder[i]) break;
+        }
+        
+        node->left = getBst(preorder, left + 1, i-1);    
+        node->right = getBst( preorder, i, right);    
+        
+        return node;  
     }
   
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-      int size = preorder.size();
-      int preIndex = 0;
-      return buildTreeUtil(preorder, &preIndex, preorder[0], INT_MIN, INT_MAX, size);  
+        return getBst(preorder, 0, preorder.size() - 1);  
     }
 };
+
+static int fastio = []() {
+    #define endl '\n'
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(NULL);
+    std::cout.tie(0);
+    return 0;
+}();
