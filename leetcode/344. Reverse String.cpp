@@ -2,14 +2,15 @@ class Solution {
 public:
     void reverseString(vector<char>& s) {
         int n = s.size();
-        if(n <= 1) return;
-        
-        int first = 0;
-        int last = n - 1;
-        while(first < last){
-            swap(s[first],s[last]);
-            first++;
-            last--;
+        for(int i = 0 ; i < n/2 ; i++){
+            swap(s[i], s[n - i - 1]);
         }
     }
 };
+
+auto speedup=[](){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
