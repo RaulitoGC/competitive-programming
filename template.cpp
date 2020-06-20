@@ -6,6 +6,8 @@ Author: Raul Guzman
 
 using namespace std;
 
+#define DEBUG true // Comment this line after send the code 
+
 #define test() cout<<"Hello Family"<<"\n"
 #define loop(n) for(int i = 0; i < n ; i++)
 #define sz(array) (int)array.size() 
