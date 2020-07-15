@@ -78,6 +78,31 @@ bool areParallel(line l1, line l2) { // check coefficients a & b
 bool areSame(line l1, line l2) { // also check coefficient c 
     return areParallel(l1 ,l2) && (fabs(l1.c - l2.c) < EPS); 
 }
+// returns true (+ intersection point) if two lines are intersect 
+bool areIntersect(line l1, line l2, point &p) {
+    if (areParallel(l1, l2)) return false; // no intersection 
+    // solve system of 2 linear algebraic equations with 2 unknowns
+    p.x = (l2.b * l1.c - l1.b * l2.c) / (l2.a * l1.b - l1.a * l2.b);
+    // special case: test for vertical line to avoid division by zero
+    if (fabs(l1.b) > EPS) p.y = -(l1.a * p.x + l1.c); 
+    else p.y = -(l2.a * p.x + l2.c); 
+    return true; 
+}
+
+struct vec { 
+    double x, y; // name: ‘vec’ is different from STL vector 
+    vec(double _x, double _y) : x(_x), y(_y) {} 
+};
+
+// convert 2 points to vector a->b 
+vec toVec(point a, point b) { return vec(b.x - a.x, b.y - a.y); 
+}
+// nonnegative s = [<1 .. 1 .. >1] // shorter.same.longer
+vec scale(vec v, double s) { return vec(v.x * s, v.y * s); }
+
+// translate p according to v
+point translate(point p, vec v) {return point(p.x + v.x , p.y + v.y); }
+
 
  
 /******************* Tourist's Template for Debugging **********/
@@ -171,20 +196,22 @@ int main(){
 
     point p;
     while(cin>>p.x>>p.y){
+
+        line l1,l2;
+
         point p1(4,4);
-        cout << p.dist(p1) << endl;
-        point aux = p.rotate(90.0);
-        debug(aux);
-        point aux2 = p.rotate(-90.0);
-        debug(aux2);
-        line l;
-        pointsToLine(p1,p,l);
-        debug(l);
-        line l1(3,4,9);
-        line l2(3,4,9);
-        line l3(3,4,5);
-        debug(areParallel(l1,l3));
-        debug(areSame(l1,l3));
+        point p2(1,1);
+        pointsToLine(p1,p2,l1);
+
+        point p3(2,0);
+        point p4(0,2);
+        pointsToLine(p3,p4,l2);
+
+        debug(l1, l2);
+        point px;
+        debug(areIntersect(l1,l2,px));
+        debug(px);
+        
     }
 	return 0;
 }
