@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define DEBUG true // Comment this line after send the code 
-
 #define test() cerr<<"Hello Family"<<"\n"
 #define sz(array) (int)array.size() 
 #define mset(array,value) memset(array,value,sizeof(array)) // [0] or [-1]
@@ -79,7 +77,7 @@ void debug_out(Head H, Tail... T) {
   debug_out(T...);
 }
 
-#ifdef DEBUG
+#ifdef _DEBUG
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 #else
 #define debug(...) 0
@@ -87,9 +85,26 @@ void debug_out(Head H, Tail... T) {
 
 /****************************************************************/
 
+class Solution {
+public:
+  int rob(vector<int>& nums) {
+      int n = nums.size();
+      if(n == 0) return 0;
+      if(n == 1) return nums[0];
+
+      int dp[n + 5];
+      dp[1] = nums[0];
+      dp[2] = max(dp[1], nums[1]);
+      for( int i = 3 ; i <= n ; i++){
+        dp[i] = max(nums[i-1] + dp[i-2], dp[i-1]);
+      }    
+      return dp[n];
+  }
+};
+
 int32_t main(){
 
-  #ifdef DEBUG
+  #ifdef _LOCAL_INPUT
     freopen("input.txt", "r", stdin) ;
     freopen("output.txt", "w", stdout) ;
   #endif
@@ -97,10 +112,15 @@ int32_t main(){
   ios_base::sync_with_stdio(false);
   cin.tie(0); cin.tie(0);
 
-  int t;
-  while(cin>>t){
-    debug(t);
-    cout << t*t << endl;  
+  int n,res;
+  Solution solution;
+  while(cin>>n){
+    vi v(n);
+    for(int i = 0 ; i < n ; i++){
+      cin >> v[i];
+    }
+    res = solution.rob(v);
+    cout << res << endl;  
   }
 
 	return 0;

@@ -87,6 +87,21 @@ void debug_out(Head H, Tail... T) {
 
 /****************************************************************/
 
+template <typename Out>
+void split(const string &s, char delim, Out result) {
+    istringstream iss(s);
+    string item;
+    while (std::getline(iss, item, delim)) {
+        *result++ = item;
+    }
+}
+
+vector<string> split(const string &s, char delim) {
+    vector<string> elems;
+    split(s, delim, back_inserter(elems));
+    return elems;
+}
+
 int32_t main(){
 
   #ifdef DEBUG
@@ -97,11 +112,17 @@ int32_t main(){
   ios_base::sync_with_stdio(false);
   cin.tie(0); cin.tie(0);
 
-  int t;
-  while(cin>>t){
-    debug(t);
-    cout << t*t << endl;  
+  string ss;
+  cin>> ss;
+  int n = ss.size();
+  cout << n << endl;
+  ss.erase(0,1); // erase '['
+  ss.erase(n-2,1); // erase ']'
+  vector<string> result = split(ss, ',');
+  for(auto val : result){
+    cout << val <<" ";
   }
+  
 
 	return 0;
 }

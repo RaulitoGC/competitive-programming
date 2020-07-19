@@ -87,6 +87,30 @@ void debug_out(Head H, Tail... T) {
 
 /****************************************************************/
 
+class Solution {
+public:
+    static const int MAX = 50;
+    int dp[MAX];
+
+    void init(){
+      for(int i = 0 ;  i < MAX  ; i++){
+        dp[i] = -1;
+      }
+      dp[1] = 1;
+      dp[2] = 2;
+    }
+
+    int f(int n){
+      if(dp[n] != -1) return dp[n];
+      return dp[n] = f(n-1) + f(n-2);
+    }
+
+    int climbStairs(int n) {
+        init();
+        return f(n);
+    }
+};
+
 int32_t main(){
 
   #ifdef DEBUG
@@ -97,10 +121,12 @@ int32_t main(){
   ios_base::sync_with_stdio(false);
   cin.tie(0); cin.tie(0);
 
-  int t;
-  while(cin>>t){
-    debug(t);
-    cout << t*t << endl;  
+  int n,res;
+  Solution solution;
+  solution.init();
+  while(cin>>n){
+    res = solution.climbStairs(n);
+    cout << res << endl;  
   }
 
 	return 0;
