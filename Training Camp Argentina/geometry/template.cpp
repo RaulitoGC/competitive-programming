@@ -20,6 +20,7 @@ typedef long long ll;
 
 /******************* Geometry template **********/
 
+#define INF 1e9
 #define EPS 1e-9
 #define PI acos(-1.0)
 #define DEG_TO_RAD (PI/180.0)
@@ -189,29 +190,39 @@ void debug_out(Head H, Tail... T) {
 #endif
 /****************************************************************/
 
+bool circle2PtsRad(point p1, point p2, double r, point &c) {
+  double d2 = (p1.x - p2.x) * (p1.x - p2.x) + 
+              (p1.y - p2.y) * (p1.y - p2.y);
+
+  if (d2 == 0.0) return false;
+
+  double det = r * r / d2;
+  
+  double h = sqrt(det);
+  
+  c.x = (p1.x + p2.x) * 0.5 + (p1.y - p2.y) * h;
+  c.y = (p1.y + p2.y) * 0.5 + (p2.x - p1.x) * h;
+  return true;  // to get the other center, reverse p1 and p2
+  }         
+
+int n;
+ll xi,yi,ai,x1,x2;
+vector<tuple<ll, ll, ll>> arr;
+
+
+static bool comp(tuple<ll, ll, ll> t1, tuple<ll, ll, ll> t2){
+  x1 = get<0>(t1);
+  x2 = get<0>(t2);
+  return x1 < x2;
+}
+
+ll maxLL(ll n1, ll n2){
+  return (n1>n2)? n1 : n2;
+}
 
 int main(){
 	ios::sync_with_stdio(false);
-  	cin.tie(0);
-
-    point p;
-    while(cin>>p.x>>p.y){
-
-        line l1,l2;
-
-        point p1(4,4);
-        point p2(1,1);
-        pointsToLine(p1,p2,l1);
-
-        point p3(2,0);
-        point p4(0,2);
-        pointsToLine(p3,p4,l2);
-
-        debug(l1, l2);
-        point px;
-        debug(areIntersect(l1,l2,px));
-        debug(px);
-        
-    }
+  cin.tie(0);
+  
 	return 0;
 }

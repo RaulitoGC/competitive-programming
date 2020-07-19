@@ -1,15 +1,11 @@
-/***************************************************************
-Template code for Competitive programming
-Author: Raul Guzman
-****************************************************************/
 #include <bits/stdc++.h>
-
 using namespace std;
 
 #define DEBUG true // Comment this line after send the code 
 
 #define test() cout<<"Hello Family"<<"\n"
-#define loop(n) for(int i = 0; i < n ; i++)
+#define Fori(i,n) for(i = 0; i < n ; i++)
+#define Forj(j,n) for(j = 0; j < n ; j++)
 #define sz(array) (int)array.size() 
 #define mset(array,value) memset(array,value,sizeof(array)) // [0] or [-1]
 
@@ -82,9 +78,22 @@ void debug_out(Head H, Tail... T) {
 
 /****************************************************************/
 
-int main(){
-	ios::sync_with_stdio(false);
-  	cin.tie(0);
-	
+int32_t main(){
+
+  #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin) ;
+    freopen("output.txt", "w", stdout) ;
+  #endif
+
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); 
+  cin.tie(0);
+
+  int t;
+  while(cin>>t){
+    debug(t);
+    cout << t*t << endl;  
+  }
+
 	return 0;
 }
