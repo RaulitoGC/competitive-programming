@@ -34,7 +34,7 @@ string to_string(const char* s) {
 string to_string(bool b) {
   return (b ? "T" : "F");
 }
- 
+
 string to_string(vector<bool> v) {
   bool first = true;
   string res = "{";
@@ -48,7 +48,7 @@ string to_string(vector<bool> v) {
   res += "}";
   return res;
 }
- 
+  
 template <typename A>
 string to_string(A v) {
   bool first = true;
@@ -87,20 +87,47 @@ void debug_out(Head H, Tail... T) {
 
 class Solution {
 public:
-    int minCostClimbingStairs(vector<int>& cost) {
-      int n = cost.size();
-      vector<int> dp(n + 5);
-      if(n == 2) return min(cost[0], cost[1]);
-      dp[0] = 0;
-      dp[1] = 0;
-      for(int i = 2 ; i <= n ; i++){
-        dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2]);
+    int size;
+    vector<int> divs;
+    void getDivisors(int n){
+      divs.clear();
+      size = (int) sqrt(n);
+      divs.push_back(1);
+      for(int i = 2; i <= size ; i++){
+        if(n % i == 0){
+          divs.push_back(i);
+          if(n/i != i){
+            divs.push_back(n/i);
+          }
+        } 
       }
-      return dp[n];
+    }
+
+    bool divisorGame(int N) {
+        vector<bool> dp(N + 5);
+        int i,j;
+
+        dp[1] = true; dp[2] = false; 
+        // for(i = 3 ; i <= N ; i++){
+        //   dp[i] = 1;
+        // }
+
+        for(i = 3 ; i <= N ; i++){
+          getDivisors(i);
+          dp[i] = !dp[i - divs[0]];
+          
+          if(dp[i] && divs.size() > 1){
+            for(j = 1; j < divs.size() ; j++){
+              dp[i] = (dp[i] && !dp[i - divs[j]]);
+            }
+          }
+        }
+        //debug(N, dp[N-1][1]);
+        // debug(N, dp);
+        // debug_out();
+        return !dp[N];
     }
 };
-
-
 
 int32_t main(){
 
@@ -112,15 +139,15 @@ int32_t main(){
   ios_base::sync_with_stdio(false);
   cin.tie(0); cin.tie(0);
 
-  int n,res;
+  int n;
+  bool res;
   Solution solution;
   while(cin>>n){
-    vi v(n);
-    for(int i = 0 ; i < n ; i++){
-      cin >> v[i];
-    }  
-    res = solution.minCostClimbingStairs(v);
-    cout << res << endl;  
+    res = solution.divisorGame(n);
+    if(res) cout << "T"<< endl;
+    else cout << "F" << endl;
+    
   }
+
 	return 0;
 }

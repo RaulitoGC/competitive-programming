@@ -142,3 +142,11 @@ int32_t main(){
   }
 	return 0;
 }
+
+static auto speedup =[]{
+    std::ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    cerr.tie(0);
+    return 0; 
+}()

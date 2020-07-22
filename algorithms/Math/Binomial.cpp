@@ -34,7 +34,7 @@ string to_string(const char* s) {
 string to_string(bool b) {
   return (b ? "T" : "F");
 }
- 
+
 string to_string(vector<bool> v) {
   bool first = true;
   string res = "{";
@@ -48,7 +48,7 @@ string to_string(vector<bool> v) {
   res += "}";
   return res;
 }
- 
+  
 template <typename A>
 string to_string(A v) {
   bool first = true;
@@ -84,23 +84,18 @@ void debug_out(Head H, Tail... T) {
 #endif
 
 /****************************************************************/
+#define MAX 100
 
-class Solution {
-public:
-    int minCostClimbingStairs(vector<int>& cost) {
-      int n = cost.size();
-      vector<int> dp(n + 5);
-      if(n == 2) return min(cost[0], cost[1]);
-      dp[0] = 0;
-      dp[1] = 0;
-      for(int i = 2 ; i <= n ; i++){
-        dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2]);
-      }
-      return dp[n];
-    }
-};
+vector<vector<ull>> C(MAX + 3, vector<ull>(MAX + 3));
 
-
+void bino(){
+  C[0][0] = 1;
+  for (int n = 1; n <= MAX; ++n) {
+    C[n][0] = C[n][n] = 1;
+    for (int k = 1; k < n; ++k)
+        C[n][k] = C[n - 1][k - 1] + C[n - 1][k];
+  }
+}
 
 int32_t main(){
 
@@ -112,15 +107,10 @@ int32_t main(){
   ios_base::sync_with_stdio(false);
   cin.tie(0); cin.tie(0);
 
-  int n,res;
-  Solution solution;
-  while(cin>>n){
-    vi v(n);
-    for(int i = 0 ; i < n ; i++){
-      cin >> v[i];
-    }  
-    res = solution.minCostClimbingStairs(v);
-    cout << res << endl;  
+  int n,k;
+  bino();
+  while(cin>>n>>k){
+    cout << C[n][k] << endl;
   }
 	return 0;
 }
