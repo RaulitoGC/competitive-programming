@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define DEBUG true // Comment this line after send the code 
-
 #define test() cerr<<"Hello Family"<<"\n"
 #define sz(array) (int)array.size() 
-#define mset(array,value) memset(array,value,sizeof(array)) // [0] or [-1]
+#define mset(array,value) memset(array,value,sizeof(array)) 
 
 #define mp make_pair
 #define pb push_back
@@ -23,8 +21,6 @@ typedef long long ll;
 typedef long double ld;
 typedef unsigned long long ull;
  
-/******************* Tourist's Template for Debugging **********/
-
 string to_string(const string& s) {
   return '"' + s + '"';
 }
