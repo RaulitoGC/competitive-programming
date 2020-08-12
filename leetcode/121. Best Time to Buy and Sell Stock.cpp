@@ -20,8 +20,6 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 typedef unsigned long long ull;
- 
-/******************* Tourist's Template for Debugging **********/
 
 string to_string(const string& s) {
   return '"' + s + '"';
