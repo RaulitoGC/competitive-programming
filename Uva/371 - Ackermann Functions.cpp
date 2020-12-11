@@ -83,6 +83,19 @@ void debug_out(Head H, Tail... T) {
 
 /****************************************************************/
 
+long c;
+
+long f(long n){
+  c = 0;
+  do{
+    if(n&1) n = 3*n + 1;
+    else n = n/2;
+    //debug(n);
+    c++;
+  }while(n!=1);
+  return c;
+}
+
 int32_t main(){
 
   #ifdef DEBUG
@@ -92,31 +105,28 @@ int32_t main(){
   
   ios_base::sync_with_stdio(false);
   cin.tie(0); cin.tie(0);
-  
-  int a,b;
-  double n;
-  bool flag;
-  while(cin>>a>>b){
-    cin>>n;
-    long long c,d;
-    d = 1;
-    flag = true;
-    long double t1 = (long double)a/b;
-    while(flag){
-      
-      c = (long long) (t1*d);
-      while(a*d >= b*c){
-        c++;
-      }
-      
-      long double t2 =(long double)c/d;
-      if(t2 - t1 <= n){
-        cout << c <<" " << d << endl;
-        flag = false;
-      }
 
-      d++;
+  
+  long x1,x2,mx,t,t1,f1;
+  while(cin>>x1>>x2){
+    if(!x1 && !x2) break;
+    if(x1 > x2) swap(x1,x2);
+    mx = 0;
+    f1 = x1;
+    debug(x1,x2);
+    while(x1 <= x2){
+      t = f(x1);
+      //debug(t);
+      if(t > mx){
+        mx = t;
+        t1 = x1;
+      } 
+      x1++;
     }
+
+    debug(mx);
+    cout << "Between "<<f1<<" and "<<x2<<", "<<t1<<" generates the longest sequence of "<<mx<<" values."<< endl;  
   }
+
 	return 0;
 }

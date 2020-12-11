@@ -83,6 +83,30 @@ void debug_out(Head H, Tail... T) {
 
 /****************************************************************/
 
+long c;
+
+
+string getType(int n){
+  debug("type");
+  int sum = 0;
+  if(n != 1) sum++;
+  for(int i = 2 ; i <= sqrt(n); i++){
+    if(n%i == 0) {
+      if(i*i == n) sum += i;
+      else sum += (i + n/i);
+    }
+  }
+  
+  debug(n, sum);
+  if(sum == n) return "PERFECT";
+  else if ( sum < n) return "DEFICIENT";
+  else return "ABUNDANT";
+}
+
+int d(int n) { 
+  return log10(n) + 1; 
+}
+
 int32_t main(){
 
   #ifdef DEBUG
@@ -92,31 +116,30 @@ int32_t main(){
   
   ios_base::sync_with_stdio(false);
   cin.tie(0); cin.tie(0);
-  
-  int a,b;
-  double n;
-  bool flag;
-  while(cin>>a>>b){
-    cin>>n;
-    long long c,d;
-    d = 1;
-    flag = true;
-    long double t1 = (long double)a/b;
-    while(flag){
-      
-      c = (long long) (t1*d);
-      while(a*d >= b*c){
-        c++;
-      }
-      
-      long double t2 =(long double)c/d;
-      if(t2 - t1 <= n){
-        cout << c <<" " << d << endl;
-        flag = false;
-      }
 
-      d++;
-    }
+  vector<int> v;
+  int n;
+  while(cin>>n){
+    if(n == 0) break;
+    v.pb(n);
   }
+
+  int sz = v.size();
+  cout << "PERFECTION OUTPUT" << endl;
+  string type = "";
+  for(int i = 0 ; i< sz ; i++){
+    type = getType(v[i]);  
+    int dgts = d(v[i]);
+    for(int j = 0 ; j < 5 - dgts; j++){
+      cout<<' ';
+    }
+    debug(v[i], type);
+    debug("---------------------");
+    cout <<v[i]<<"  "<<type<<endl;
+  }
+
+
+  
+  cout << "END OF OUTPUT" << endl;
 	return 0;
 }
