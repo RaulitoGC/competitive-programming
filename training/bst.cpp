@@ -1,73 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node{
-  int val;
-  Node* left;
-  Node* right;
-  Node(int _val): val(_val), left(nullptr), right(nullptr){};
-  Node(int _val, Node* _left, Node* _right): val(_val), left(_left), right(_right){};
-};
-
 class BST{
-  private:
-    Node* root;
-
-    void print_preorder(Node* root){
-      if(root != NULL){
-        cout << root->val << endl;
-        print_preorder(root->left);
-        print_preorder(root->right);
-      }
-    }
-
-    void print_inorder(Node* root){
-      if(root != NULL){
-        print_inorder(root->left);
-        cout << root->val << " ";
-        print_inorder(root->right);
-      }
-    }
-
-    void print_post_order(){
-
-    }
-
-    void print_bfs(){
-
-    }
-
   public :
-    BST(){}
 
-    void insert(Node* root, int val){
-      if(val < root->val){
-        if(root->left != NULL){
-          insert(root->left, val);
+    int value;
+    BST* left;
+    BST* right;
+
+    BST(int _value){
+      value = _value;
+    }
+
+    void insert(int newValue){
+      if(newValue < value){
+        if(left != NULL){
+          left->insert(newValue);
         }else{
-          root->left = new Node(val);
+          left = new BST(newValue);
         }
-      }else if(root->val < val){
-        if(root->right != NULL){
-          insert(root->right, val);
+      }else if(value < newValue){
+        if(right != NULL){
+          right->insert(newValue);
         }else{
-          root->right = new Node(val);
+          right = new BST(newValue);
         }
       }else{
         // do not nothing if the value exist
       }
     }
 
-    bool search(Node* root, int val){
-      if(val < root->val){
-        if(root->left != NULL){
-          return search(root->left, val);
+    bool search(int value){
+      if(value < this->value){
+        if(left != NULL){
+          return left->search(value);
         }else{
           return false;
         }
-      }else if(root->val < val){
-        if(root->right != NULL){
-          return search(root->right, val);
+      }else if(this->value < value){
+        if(right != NULL){
+          return right->search(value);
         }else{
           return false;
         }
@@ -77,25 +49,36 @@ class BST{
       return false;
     }
 
-    void remove(Node* root, int val){
-
+    int getMinValue(){
+      if(left != NULL){
+        return left->getMinValue();
+      }else{
+        return value;
+      }
     }
 
-    void print(Node* root){
-      print_inorder(root);
-    }
-    
+    void remove(int value, BST* parent){
+      if(value < this->value){
+        if(right != NULL){
+          right->remove(value, this);
+        }
+      }else if( this->value < value){
+        if(left != NULL){
+          left->remove(value, this);
+        }
+      }else{
+        if(left != NULL && right != NULL){
+          value = right->getMinValue();
+          right->remove(value, this);
+        }
+      }
+    }    
 };
 
 
 int32_t main(){
 
-  Node* root = new Node(10, new Node(8, new Node(7), nullptr), new Node(12));
-  BST* bst = new BST();
-  //bst->print(root);
-  cout << bst->search(root, 9) << endl;
-  bst->insert(root, 9);
-  cout << endl;
-  cout << bst->search(root, 9) << endl;
-  //bst->print(root);
+  BST* bst = new BST(10);
+  bst->left = new BST(8);
+  
 }

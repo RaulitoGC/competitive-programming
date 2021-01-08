@@ -63,6 +63,23 @@ class Tree{
         }
       }
     }
+
+    void bfs_iterative(Node* root){
+      queue<Node*> q;
+      q.push(root);
+      while(!q.empty()){
+        Node* current = q.front();
+        cout << current->val << " ";
+        q.pop();
+        if(current->left != NULL){
+          q.push(current->left);
+        }
+
+        if(current->right != NULL){
+          q.push(current->right);
+        }
+      }
+    }
 };
 
 
@@ -71,11 +88,13 @@ int32_t main(){
   Tree* tree = new Tree();
   
   Node* node = new Node(10, new Node(5, new Node(2), new Node(6)), new Node(12, new Node(11), new Node(14)));
-  tree->dfs_preorder(node);
+  // tree->dfs_preorder(node);
+  // cout << endl;
+  // tree->dfs_inorder(node);
+  // cout << endl;
+  // tree->dfs_postorder(node);
+  // cout << endl;
+  // tree->dfs_iterative(node);
   cout << endl;
-  tree->dfs_inorder(node);
-  cout << endl;
-  tree->dfs_postorder(node);
-  cout << endl;
-  tree->dfs_iterative(node);
+  tree->bfs_iterative(node);
 }
