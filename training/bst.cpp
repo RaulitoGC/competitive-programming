@@ -12,6 +12,8 @@ class BST{
       value = _value;
     }
 
+    // Average : Time -> O(log(n)), Space -> O(1)
+    // Worst Case: Time -> O(n), space -> O(1)
     void insert(int newValue){
       if(newValue < value){
         if(left != NULL){
@@ -30,6 +32,8 @@ class BST{
       }
     }
 
+    // Average : Time -> O(log(n)), Space -> O(1)
+    // Worst Case: Time -> O(n), space -> O(1)
     bool search(int value){
       if(value < this->value){
         if(left != NULL){
