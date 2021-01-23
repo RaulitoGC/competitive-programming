@@ -1,5 +1,6 @@
-using namespace std;
+#include <bits/stdc++.h>
 
+using namespace std;
 
 string getSimpleRunLegthEnconding(int start, int end, char c){
 	string res = "";
@@ -24,6 +25,8 @@ string getSimpleRunLegthEnconding(int start, int end, char c){
 	return res;
 }
 
+// Time : O(n)
+// Space: O(n), n is te response in worst case
 string runLengthEncoding(string str) {
   int size = str.size();
 	
