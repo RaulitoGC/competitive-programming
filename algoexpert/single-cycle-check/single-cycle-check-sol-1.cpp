@@ -1,3 +1,4 @@
+#include <bits/stdc++.h>
 using namespace std;
 
 bool hasSingleCycle(vector<int> array) {
