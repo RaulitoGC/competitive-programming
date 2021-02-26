@@ -1,3 +1,4 @@
+#include<bits/stdc++.h>
 using namespace std;
 
 class Node {
@@ -26,9 +27,7 @@ public:
 			tail = node;
 			return;
 		}
-		
 		insertBefore(head, node);
-		
   }
 
   void setTail(Node *node) {
@@ -103,8 +102,6 @@ public:
 		}else{
 			insertBefore(node, nodeToInsert);
 		}
-		
-		
   }
 
   void removeNodesWithValue(int value) {
