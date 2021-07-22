@@ -91,8 +91,6 @@ int32_t main(){
 
   cout << "Hello world"<< endl;
 
-  cout << __cplusplus << endl;
-
   unordered_map<int, int> M;
   map<int, int> Mm;
   int n;
@@ -103,7 +101,7 @@ int32_t main(){
     M[a] = a;
   }
 
-  //debug(M);
+  debug(M);
 
 	return 0;
 }

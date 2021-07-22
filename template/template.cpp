@@ -1,17 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 #define test() cerr<<"Hello Family"<<"\n"
 #define sz(array) (int)array.size() 
-#define mset(array,value) memset(array,value,sizeof(array)) 
-
 #define mp make_pair
 #define pb push_back
 #define fi first
 #define se second
 #define popb pop_back
 #define all(v) v.begin(),v.end()
-
 #define vi vector<int>
 #define vvi vector<vector<int>>
 #define mii map<int,int>
@@ -20,62 +16,9 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 typedef unsigned long long ull;
- 
-string to_string(const string& s) {
-  return '"' + s + '"';
-}
- 
-string to_string(const char* s) {
-  return to_string((string) s);
-}
- 
-string to_string(bool b) {
-  return (b ? "T" : "F");
-}
- 
-string to_string(vector<bool> v) {
-  bool first = true;
-  string res = "{";
-  for (int i = 0; i < static_cast<int>(v.size()); i++) {
-    if (!first) {
-      res += ", ";
-    }
-    first = false;
-    res += to_string(v[i]);
-  }
-  res += "}";
-  return res;
-}
- 
-template <typename A>
-string to_string(A v) {
-  bool first = true;
-  string res = "{";
-  for(const auto &x : v) {
-    if (!first) {
-      res += ", ";
-    }
-    first = false;
-    res += to_string(x);
-  }
-  res += "}";
-  return res;
-}
- 
-template <typename A, typename B>
-string to_string(pair<A, B> p) {
-  return "<" + to_string(p.first) + ", " + to_string(p.second) + ">";
-}
 
-void debug_out() { cerr << endl; }
- 
-template <typename Head, typename... Tail>
-void debug_out(Head H, Tail... T) {
-  cerr << " " << to_string(H);
-  debug_out(T...);
-}
-
-#ifdef DEBUG
+#ifdef _DEBUG
+#include "debug.cpp"
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 #else
 #define debug(...) 0
@@ -85,7 +28,7 @@ void debug_out(Head H, Tail... T) {
 
 int32_t main(){
 
-  #ifdef DEBUG
+  #ifdef _LOCAL_INPUT
     freopen("input.txt", "r", stdin) ;
     freopen("output.txt", "w", stdout) ;
   #endif
@@ -93,6 +36,17 @@ int32_t main(){
   ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
   cout << "Hello world"<< endl;
+  int a = 3;
+  set<int> s; s.insert(1); s.insert(1); s.insert(3); s.insert(4);
+  unordered_set<int> us; us.insert(2) ;us.insert(5); us.insert(6); 
+  map<int, int> m; m[2] = 2; m[3] = 4; m[9] = 4;
+  unordered_map<int,int> um; um[2] = 52; um[3] = 44; um[9] = 34;
+
+  debug(a);
+  debug(s);
+  debug(us);
+  debug(m);
+  debug(um);
 
 	return 0;
 }
