@@ -1,25 +1,16 @@
 #include <bits/stdc++.h>
+ 
 using namespace std;
-
-#define test() cerr<<"Hello Family"<<"\n"
+ 
+#define test() cout<<"Hello Family"<<"\n"
+#define loop(n) for(int i = 0; i < n ; i++)
 #define sz(array) (int)array.size() 
-#define mset(array,value) memset(array,value,sizeof(array)) 
-
-#define mp make_pair
-#define pb push_back
-#define fi first
-#define se second
-#define popb pop_back
-#define all(v) v.begin(),v.end()
-
+#define mset(array,value) memset(array,value,sizeof(array)) // [0] or [-1]
+ 
 #define vi vector<int>
-#define vvi vector<vector<int>>
 #define mii map<int,int>
-#define pii pair<int, int>
-
+ 
 typedef long long ll;
-typedef long double ld;
-typedef unsigned long long ull;
  
 string to_string(const string& s) {
   return '"' + s + '"';
@@ -66,7 +57,7 @@ template <typename A, typename B>
 string to_string(pair<A, B> p) {
   return "<" + to_string(p.first) + ", " + to_string(p.second) + ">";
 }
-
+ 
 void debug_out() { cerr << endl; }
  
 template <typename Head, typename... Tail>
@@ -74,25 +65,48 @@ void debug_out(Head H, Tail... T) {
   cerr << " " << to_string(H);
   debug_out(T...);
 }
-
+ 
 #ifdef DEBUG
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 #else
 #define debug(...) 0
 #endif
-
+ 
 /****************************************************************/
-
-int32_t main(){
-
-  #ifdef DEBUG
+ 
+const int MAX_SIZE = 100000 + 3;
+int n,ai;
+ 
+long long maxLL(long long a, long long b){
+  return (a > b) ? a : b;
+}
+ 
+int main(){
+ 
+  #ifdef _LOCAL_INPUT
     freopen("input.txt", "r", stdin) ;
     freopen("output.txt", "w", stdout) ;
   #endif
+ 
+	ios::sync_with_stdio(false);
+  cin.tie(0);
   
-  ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-
-  cout << "Hello world"<< endl;
-
+  while(cin>>n){
+    vector<int> c(MAX_SIZE, 0);
+    vector<long long> dp(MAX_SIZE, 0);
+    while(n--){
+      cin>>ai;
+      c[ai]++;
+    }
+    
+    dp[1] = c[1];
+    for(int i = 2; i < MAX_SIZE ; i++){
+      long long prevProfit = (long long )c[i]*i;
+      dp[i] = maxLL(dp[i-1], dp[i-2] + prevProfit);
+    }
+ 
+    cout << dp[MAX_SIZE - 1] << endl;
+  }
+ 
 	return 0;
 }

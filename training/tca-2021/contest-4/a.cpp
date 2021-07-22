@@ -1,25 +1,22 @@
 #include <bits/stdc++.h>
-using namespace std;
-
-#define test() cerr<<"Hello Family"<<"\n"
 #define sz(array) (int)array.size() 
-#define mset(array,value) memset(array,value,sizeof(array)) 
-
 #define mp make_pair
 #define pb push_back
 #define fi first
 #define se second
 #define popb pop_back
 #define all(v) v.begin(),v.end()
-
 #define vi vector<int>
 #define vvi vector<vector<int>>
 #define mii map<int,int>
 #define pii pair<int, int>
+#define test() cerr<<"Hello Family"<<"\n"
 
 typedef long long ll;
 typedef long double ld;
 typedef unsigned long long ull;
+
+using namespace std;
  
 string to_string(const string& s) {
   return '"' + s + '"';
@@ -93,6 +90,20 @@ int32_t main(){
   ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
   cout << "Hello world"<< endl;
+
+  cout << __cplusplus << endl;
+
+  unordered_map<int, int> M;
+  map<int, int> Mm;
+  int n;
+  cin>>n;
+  while(n--){
+    int a;
+    cin >> a;
+    M[a] = a;
+  }
+
+  //debug(M);
 
 	return 0;
 }
