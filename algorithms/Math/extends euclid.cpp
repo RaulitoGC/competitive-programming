@@ -16,6 +16,17 @@ int gcd(int a, int b, int &x, int &y) {
   return d;
 }
 
+
+tuple<long long, long long, long long > gcd(long long a, long long b){
+  if(b == 0){
+    return {1, 0 , a};
+  }else{
+    int x,y,g;
+    tie(x,y,g) = gcd(b, a % b);
+    return {y, x - (a / b) * y, g};
+  }
+}
+
 int main(void) {
   	int a, b, x, y, d;
   	while (cin >> a >> b) {
