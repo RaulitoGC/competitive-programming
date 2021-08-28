@@ -13,9 +13,12 @@ class Tree{
   public :
     Tree(){}
 
-    // VAL - LEFT - RIGHT
-    // Time complexity = O(n): traverse all the nodes
-    // Space complexity = O(n): The function stack
+    /**
+     *  DFS pre order traversal
+     *  VAL - LEFT - RIGHT
+     *  Time complexity = O(n): traverse all the nodes
+     *  Space complexity = O(n): The function stack 
+     **/
     void dfs_preorder(Node* root){
       if(root != NULL){
         cout << root->val << " ";
@@ -24,14 +27,21 @@ class Tree{
       }
     }
 
-    // LEFT - VAL - RIGHT
-    // Time complexity = O(n): traverse all the nodes
-    // Space complexity = O(n): The function stack
+    /**
+     *  DFS pre order traversal
+     *  LEFT - VAL - RIGHT
+     *  Time complexity = O(n): traverse all the nodes
+     *  Space complexity = O(n): The function stack 
+     *  Uses:
+     *  - Return nodes in non-decreasing order in BST
+     **/
+
     void dfs_inorder(Node* root){
       if(root != NULL){
-        dfs_inorder(root->left);
-        cout << root->val << " ";
         dfs_inorder(root->right);
+        cout << root->val << " ";
+        dfs_inorder(root->left);
+        
       }
     }
 
@@ -87,14 +97,16 @@ class Tree{
 int32_t main(){
   Tree* tree = new Tree();
   
-  Node* node = new Node(10, new Node(5, new Node(2), new Node(6)), new Node(12, new Node(11), new Node(14)));
+  Node* node = new Node(10, 
+  new Node(5, new Node(2), new Node(6)), 
+  new Node(12, new Node(11), new Node(14)));
   // tree->dfs_preorder(node);
   // cout << endl;
   // tree->dfs_inorder(node);
   // cout << endl;
-  // tree->dfs_postorder(node);
+  tree->dfs_inorder(node);
   // cout << endl;
   // tree->dfs_iterative(node);
   cout << endl;
-  tree->bfs_iterative(node);
+  //tree->bfs_iterative(node);
 }
