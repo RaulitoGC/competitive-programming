@@ -32,7 +32,7 @@ typedef unsigned long long ull;
 const int MAX = 10;
 
 int n;
-
+int counts = 0;
 void lis(vector<int> arr){
   int n = arr.size();
   vector<int> T(n,1);
@@ -42,12 +42,14 @@ void lis(vector<int> arr){
     while(j < i){
       if(arr[j] < arr[i]){
         T[i] = max(T[j] + 1, T[i]);
+        if(T[i] >= 3) counts++;
       }
       j++;
     }
     i++;
   }
   debug(T);
+  debug(counts);
 }
 
 int32_t main(){
@@ -59,7 +61,7 @@ int32_t main(){
   
   ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-  vector<int> arr = {3, 4, -1, 0, 6, 2, 3};
+  vector<int> arr = {1,2,3,4};
   lis(arr);
 	return 0;
 }
