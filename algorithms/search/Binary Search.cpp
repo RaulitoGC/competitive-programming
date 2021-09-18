@@ -25,9 +25,18 @@ typedef unsigned long long ull;
 
 
 bool p2(int x, int target){
-	return x <= target;
+	return target < x;
 }
 
+// Upper bound in c++ : upper_bound() is a standard library 
+// function in C++ defined in the header . It returns an 
+// iterator pointing to the first element in the 
+// range [first, last) that is greater than value, or last 
+// if no such element is found. The elements in the range shall 
+// already be sorted or at least partitioned with respect to val.
+
+// bs_upper_bound : return the position which has a value greater than target
+// or last if element is found
 int bs_upper_bound(vector<int> S, int target){
 	// First item of the set S
 	int low = 0;
@@ -38,29 +47,31 @@ int bs_upper_bound(vector<int> S, int target){
 	while(low < high){
 		// In order to rounding down make median = l + (h - l)/2
 		int median = low + (high - low)/2;
-		cout << low << " -- "<< high << endl;
-		// In this case the predicate is "Is S[median] equals or less than target?"
-		// Since we are sure that all the values to the right are greather thant target
+		//cout << low << " -- "<< high << endl;
+
+		// In this case the predicate is "Is S[median] greater than target?"
+		// Since we are sure that all the values to the right are greater than the target
+		// and we are searching for the first value greater than target
 		// We can move to the left side in order to verify if there is at least one more value
-		// thant can satisfy the predicate p1
+		// thant can satisfy the predicate p2
+		// we need to include median since it could be our first value for when 
+		// p2 is true
 		if(p2(S[median], target)){
-			low = median + 1;
-		// Since we are sure that predicate p(x) is false, we can decide what is 
-		// our new search space. For this case if target is less than the S[median]
+			high = median;
+		// Since we are sure that predicate p2(x) is false, we can decide what is 
+		// our new search space. For this case if target is greater or equal than the S[median]
 		// it means that our new search space is:
 		// S[median] = 3
 		// [1,1,1,1,3,3,3,3] -> Search space [0, 7]
 		// [1,1,1,1,-,-,-,-] -> Search space [0, 4]
+		// we do not need to include median, since it is false for p2 predicate
 		}else {
-			high = median;
+			low = median + 1;
 		}
-		cout << low << " -|- "<< high << endl;
-		cout << endl;
-
 		// Complain :  p(x) is false for all x in S!
-		if(!p2(S[low], target)){
-			return low;
-		}
+		// if(!p2(S[low], target)){
+			//return low;
+		//}
 	}
 
 	// When we are out of search space, we can return low since, we are looking for the lower_bound position
@@ -69,10 +80,17 @@ int bs_upper_bound(vector<int> S, int target){
 
 
 bool p1(int x, int target){
-	return x >= target;
+	return target <= x;
 }
 
-// Lower_Bound: return the position of the value equals or less than target
+// Lower Bound in C++ = The lower_bound() method in C++ is used to return an 
+// iterator pointing to the first element in the range [first, last) which has 
+// a value not less than val. This means that the function returns the index 
+// of the next smallest number just greater than or equal to that number. 
+// If there are multiple values that are equal to val, lower_bound() returns 
+// the index of the first such value.
+
+// Lower_Bound: return the position which has a value not less than target
 int bs_lower_bound(vector<int> S, int target){
 	// First item of the set S
 	int low = 0;
@@ -85,18 +103,20 @@ int bs_lower_bound(vector<int> S, int target){
 		// the '+1' is to avoid infinite loop
 		int median = low + (high - low)/2;
 
-		// In this case the predicate is "Is S[median] equals or less than target?"
-		// Since we are sure that all the values to the right are greather thant target
-		// We can move to the left side in order to verify if there is at least one more value
+		// In this case the predicate is "Is target less or equal to s[median]?"
+		// Since we know that or s[median] value is greater or equal that the target value
+		// We can move to the left side in order to verify if there is at least one more value 
 		// thant can satisfy the predicate p1
+		// We need to include median since it could be our first value whenn p1 is true
 		if(p1(S[median], target)){
 			high = median;
 		// Since we are sure that predicate p(x) is false, we can decide what is 
-		// our new search space. For this case if target is less than the S[median]
-		// it means that our new search space is:
+		// our new search space. For this case if target is greater than the S[median]
+		// it means that our new search space is the right side:
 		// S[median] = 2
 		// [1,2,2,2,2,2,2,2,2,2,2,2] -> Search space [0, 12]
 		// [-,-,-,-,-,-,2,2,2,2,2,2] -> Search space [0, 5]
+		// We do not need to include median, since we know that p1 for median is false
 		}else {
 			low = median + 1;
 		}
@@ -151,13 +171,12 @@ int main(){
 	vector<int> v;
 
 	v.push_back(1);
-	v.push_back(1);
-	v.push_back(1);
-	v.push_back(1);
+	v.push_back(2);
 	v.push_back(3);
 	v.push_back(3);
 	v.push_back(3);
 	v.push_back(3);
+	v.push_back(7);
 
 	//v.push_back(3);
 	// v.push_back(4);
@@ -168,14 +187,16 @@ int main(){
 	int num;
 	while(cin >> num){
 		//int idx = bs(v, num);
-		auto lower_it = lower_bound(v.begin(), v.end(), num);
-		//auto upper_it = upper_bound(v.begin(), v.end(), num);
-		auto it = bs_lower_bound(v, num);
-		//auto it = bs_upper_bound(v, num);
-		cout << "custom upper bound " << it << endl;
-		cout <<"lower bound = " << lower_it  - v.begin()<< endl;
-		//cout <<"upper bound = " << upper_it  - v.begin()<< endl;
-		//cout << idx << endl;
+		
+		// auto lower_it = lower_bound(v.begin(), v.end(), num);
+		// auto custom_lower_idx = bs_lower_bound(v, num);
+
+		auto upper_it = upper_bound(v.begin(), v.end(), num);
+		auto custom_upper_idx = bs_upper_bound(v, num);
+		// cout << "custom upper bound " << custom_lower_idx << endl;
+		// cout <<"lower bound = " << lower_it  - v.begin()<< endl;
+		cout <<"custom upper bound = " << custom_upper_idx << endl;
+		cout <<"upper bound = " << upper_it  - v.begin() << endl;
 	}
 	
 	return 0;
