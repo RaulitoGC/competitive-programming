@@ -2,17 +2,19 @@
  * Example:
  * var li = ListNode(5)
  * var v = li.`val`
- * Definition for singly-linked list.
- * class ListNode(var `val`: Int) {
- *     var next: ListNode? = null
- * }
+ * Definition for singly-linked list. 
  */
 
- class Solution {
+class ListNode(var `val`: Int) {
+    var next: ListNode? = null
+}
 
-    /*
-     * Return null if there is no cycle, otherwise a node
-     */
+
+class Solution {
+
+/*
+    * Return null if there is no cycle, otherwise a node
+    */
     private fun hasCycle(head: ListNode?) : ListNode? {
         var first = head; var second = head
         while(second != null) {
