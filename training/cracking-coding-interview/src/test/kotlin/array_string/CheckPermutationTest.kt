@@ -4,7 +4,7 @@ import Level
 import Question
 import org.junit.jupiter.api.Test
 
-class UniqueTest {
+class CheckPermutationTest {
 
     @Test
     fun testBasicImplementation_resultTrue() {
@@ -13,9 +13,9 @@ class UniqueTest {
                 get() = Level.BASIC
         }
 
-        val input = "ABCDE"
+        val str1 = "ABCDE"; val str2 = "ADECB"
         val expectedResult = true
-        val actualResult = problem.isUnique(input)
+        val actualResult = problem.checkPermutation(str1, str2)
         assert(actualResult == expectedResult)
     }
 
@@ -26,9 +26,9 @@ class UniqueTest {
                 get() = Level.BASIC
         }
 
-        val input = "ABCDEC"
+        val str1 = "ABCDE"; val str2 = "AXECB"
         val expectedResult = false
-        val actualResult = problem.isUnique(input)
+        val actualResult = problem.checkPermutation(str1, str2)
         assert(actualResult == expectedResult)
     }
 
@@ -36,12 +36,12 @@ class UniqueTest {
     fun testIntermediateImplementation_resultTrue() {
         val problem = object : Question {
             override val level: Level
-                get() = Level.BASIC
+                get() = Level.INTERMEDIATE
         }
 
-        val input = "ABCDE"
+        val str1 = "ABCDE"; val str2 = "ADECB"
         val expectedResult = true
-        val actualResult = problem.isUnique(input)
+        val actualResult = problem.checkPermutation(str1, str2)
         assert(actualResult == expectedResult)
     }
 
@@ -49,12 +49,12 @@ class UniqueTest {
     fun testIntermediateImplementation_resultFalse() {
         val problem = object : Question {
             override val level: Level
-                get() = Level.BASIC
+                get() = Level.INTERMEDIATE
         }
 
-        val input = "ABCDEC"
+        val str1 = "ABCDE"; val str2 = "AXECB"
         val expectedResult = false
-        val actualResult = problem.isUnique(input)
+        val actualResult = problem.checkPermutation(str1, str2)
         assert(actualResult == expectedResult)
     }
 
@@ -62,12 +62,12 @@ class UniqueTest {
     fun testAdvanceImplementation_resultTrue() {
         val problem = object : Question {
             override val level: Level
-                get() = Level.BASIC
+                get() = Level.ADVANCE
         }
 
-        val input = "ABCDE"
+        val str1 = "ABCDE"; val str2 = "ADECB"
         val expectedResult = true
-        val actualResult = problem.isUnique(input)
+        val actualResult = problem.checkPermutation(str1, str2)
         assert(actualResult == expectedResult)
     }
 
@@ -75,12 +75,12 @@ class UniqueTest {
     fun testAdvanceImplementation_resultFalse() {
         val problem = object : Question {
             override val level: Level
-                get() = Level.BASIC
+                get() = Level.ADVANCE
         }
 
-        val input = "ABCDEC"
+        val str1 = "ABCDE"; val str2 = "AXECB"
         val expectedResult = false
-        val actualResult = problem.isUnique(input)
+        val actualResult = problem.checkPermutation(str1, str2)
         assert(actualResult == expectedResult)
     }
 }
