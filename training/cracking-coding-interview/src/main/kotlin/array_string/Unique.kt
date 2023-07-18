@@ -12,7 +12,6 @@ fun Question.isUnique(str: String): Boolean {
     return when (level) {
         Level.BASIC -> isUniqueBasicImplementation(str)
         Level.INTERMEDIATE -> isUniqueIntermediateImplementation(str)
-        Level.ADVANCE -> isUniqueAdvanceLevel(str)
         else -> throw NotImplementedError("This problem does not contain ${level.name} implementation")
     }
 }
@@ -42,23 +41,9 @@ private fun isUniqueIntermediateImplementation(str: String): Boolean {
         if (cache.contains(it)) {
             return false
         }
+        cache.add(it)
     }
     return true
 }
 
-/**
- * Time: O(n)
- * Space: O(1)
- */
-private fun isUniqueAdvanceLevel(str: String): Boolean {
-    if(str.isEmpty()){
-        return false
-    }
-
-    var result = str.first().toInt()
-    for (i in 1 until str.length){
-        result = result xor str[i].toInt()
-    }
-    return result > 0
-}
 
