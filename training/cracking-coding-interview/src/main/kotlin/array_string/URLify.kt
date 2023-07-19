@@ -18,10 +18,19 @@ fun Question.urLify(str: String, length: Int): String {
     }
 }
 
+/**
+ * Time: O(L)
+ * Space: O(L)
+ */
 private fun urLifyBasicImplementation(str: String, length: Int) : String {
     return str.take(length).replace(" ", "%20")
 }
 
+
+/**
+ * Time: O(L)
+ * Space: O(L)
+ */
 private fun urLifyIntermediateImplementation(str: String, length: Int) : String {
     val sb = StringBuilder()
     for(i in 0 until length){
