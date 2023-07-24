@@ -10,6 +10,10 @@ fun Question.stringCompression(str: String): String {
     }
 }
 
+/**
+ * Time: O(n)
+ * Space: O(n)
+ */
 private fun stringCompressionIntermediateImplementation(str: String): String {
     if(str.isEmpty()){
         return str
@@ -35,6 +39,10 @@ private fun stringCompressionIntermediateImplementation(str: String): String {
     return if(result.length < str.length) result else str
 }
 
+/**
+ * Time: O(n)
+ * Space: O(n)
+ */
 private fun stringCompressionBasicImplementation(str: String): String {
     val cacheCount = str.groupingBy { it }.eachCount()
     val sb = StringBuilder()
