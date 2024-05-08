@@ -1,82 +1,57 @@
-
 data class Node(
-    val value: Int,
-    var next: Node? = null
+    var next: Node? = null,
+    val value: Int
 )
 
 class MyLinkedList() {
 
-    val head = Node(-100)
-
-
+    private var head: Node? = null
+    private var size = 0
 
     fun get(index: Int): Int {
-        
-        val size = getLinkedListSize()
         if(index < 0 || index >= size){
             return -1
         }
 
-        var idx = 0
-        var prev = head
-        var current = head?.next
-        while(current != null && idx != index){
-            prev = current
+        var current = head
+        for(idx in 0 until index){
             current = current?.next
-            idx += 1
         }
 
         return current?.value ?: -1
     }
 
-    private fun getLinkedListSize(): Int{
-        var current = head?.next
-        var idx = 0
-        while(current != null){
-            idx += 1
-            current = current?.next
-        }
-        return idx
-    }
-
     fun addAtHead(`val`: Int) {
-        val current = head
-        val next = head?.next
-        
-        val nodeToAdd = Node(value = `val`)
-        
-        if(next == null){
-            head?.next = nodeToAdd
-        } else {
-            current?.next = nodeToAdd
-            nodeToAdd?.next = next
-        }
-        
+        val node = Node(
+            value = `val`
+        )
+        node?.next = head
+        head = node
+        size += 1
     }
 
     fun addAtTail(`val`: Int) {
-        var nodeToAdd = Node(value = `val`)
-        var current: Node? = head?.next
-
-        if(current == null){
-            head?.next = nodeToAdd
+        if(head == null){
+            addAtHead(`val`)
             return
         }
 
+        var current = head
         while(current?.next != null){
             current = current?.next
         }
-        current?.next = nodeToAdd
-        
+        val node = Node(value = `val`)
+        current?.next = node
+        size += 1
     }
 
     fun addAtIndex(index: Int, `val`: Int) {
-        val size = getLinkedListSize()
-        if ( index < 0 || index > size){
-            return
-        }
         if(index == size){
             addAtTail(`val`)
+            return
+        }
+
+        if(index > size){
             return
         }
 
@@ -85,38 +60,36 @@ class MyLinkedList() {
             return
         }
 
-        var idx = 0
-        var prev = head
-        var current = head?.next
-        val nodeToAdd = Node(value = `val`)
-        while(current != null && idx != index){
-            prev = current
+        var current = head
+        for(idx in 0 until index - 1){
             current = current?.next
-            idx += 1
         }
 
-        prev?.next = nodeToAdd
-        nodeToAdd?.next = current
+        val node = Node(value = `val`)
+        val next = current?.next
+        current?.next = node
+        node?.next = next
+        size += 1
     }
 
     fun deleteAtIndex(index: Int) {
-        val size = getLinkedListSize()
-        if ( index < 0 || index >= size){
+        if(index < 0 || index >= size){
             return
         }
 
-        var idx = 0
-        var prev = head
-        var current = head?.next
-        while(current != null && idx != index){
-            prev = current
-            current = current?.next
-            idx += 1
+        size -= 1
+        if(index == 0){
+            head = head?.next
+            return
         }
 
+        var current = head
+        for(idx in 0 until index - 1){
+            current = current?.next
+        }
         val next = current?.next
-        current?.next = null
-        prev?.next = next
+        current?.next = next?.next
+        
     }
 
 }
