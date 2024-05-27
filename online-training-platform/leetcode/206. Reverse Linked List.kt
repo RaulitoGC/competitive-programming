@@ -9,31 +9,23 @@
  */
 class Solution {
     fun reverseList(head: ListNode?): ListNode? {
-        var prev: ListNode? = head
-        var current: ListNode? = head?.next
-        var next: ListNode? = head?.next?.next
-
-        if(prev == null) {
+        if(head == null) {
             return null
         }
 
-        if(current == null) {
-            return prev
-        }
+        var current = head 
+        var next = current?.next 
+        var nextNext = next?.next
+        current?.next = null
 
-        prev?.next = null
-        if(next == null) {
-            current?.next = prev
-            return current
-        }
-
-        while(current != null) {
-            current?.next = prev
-            prev = current
+        while(next != null) {
+            next?.next = current
             current = next
-            next = next?.next
+            next = nextNext
+            nextNext = next?.next
         }
 
-        return prev
+        return current
+
     }
 }

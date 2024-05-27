@@ -10,43 +10,22 @@
 
  class Solution {
     fun getIntersectionNode(headA:ListNode?, headB:ListNode?):ListNode? {
-        if(headA != null && headB != null){
-            if(headA?.next == headB){
-                return headB
-            }
+        val cache = HashSet<ListNode?>()
 
-            if(headB?.next == headA){
-                return headA
-            }
-
-            val cache = HashSet<ListNode>()
-
-            var n1 = headA; var n2 = headB
-            cache.add(n1)
-
-            n1 = n1?.next
-            while(n1 != null){
-                n1?.let{
-                    cache.add(it)
-                }
-                n1 = n1?.next
-            }
-
-            while(n2 != null){
-                n2?.let{
-                    if(cache.contains(it)){
-                        return it
-                    }
-
-                    cache.add(it)
-                }
-                n2 = n2?.next
-            }
-
+        var current = headA
+        while(current != null){
+            cache.add(current)
+            current = current?.next
         }
 
+        current = headB
+        while(current != null){
+            if(cache.contains(current)){
+                return current
+            }
+            current = current?.next
+        }
 
-
-        return null 
+        return null
     }
 }

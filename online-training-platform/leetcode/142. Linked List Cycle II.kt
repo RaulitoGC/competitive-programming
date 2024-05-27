@@ -15,31 +15,22 @@ class Solution {
 /*
     * Return null if there is no cycle, otherwise a node
     */
-    private fun hasCycle(head: ListNode?) : ListNode? {
-        var first = head; var second = head
-        while(second != null) {
-            first = first?.next
-            second = second?.next?.next
-            if(first == second) {
-                break
-            }
-        }
-
-        return second
-    }
-
     fun detectCycle(head: ListNode?): ListNode? {
-        var matchNode = hasCycle(head)
-        if(matchNode == null){
-            return null
+        var slow = head
+        var fast = head
+        var flag = true
+        while(slow != fast || flag){
+            slow = slow?.next
+            fast = fast?.next?.next
+            flag = false
+        }
+
+        var result = head
+        while(result != slow){
+            result = result?.next
+            slow = slow?.next
         }
         
-        var first = head
-        
-        while(first != matchNode) {
-            first = first?.next
-            matchNode = matchNode?.next
-        }
-        return first
+        return result
     }
 }
