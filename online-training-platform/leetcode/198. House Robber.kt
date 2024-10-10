@@ -1,26 +1,30 @@
 class Solution {
     fun rob(nums: IntArray): Int {
         val size = nums.size
-        
-        if(size <= 2){
-            return nums.max()
+        if(size == 1){
+            return nums.first()
         }
         
-        val acumNumber = IntArray(size){
+        if(size == 2){
+            return max(nums[0], nums[1])
+        }
+        
+        if(size == 3){
+            return max(nums[0] + nums[2], nums[1])
+        }
+        
+        val acum = IntArray(size){
             0
         }
-
-        acumNumber[0] = nums[0]
-        acumNumber[1] = nums[1]
-        acumNumber[2] = nums[2] + nums[0]
-        var result = max(acumNumber[1], acumNumber[2])
+        
+        acum[0] = nums[0]
+        acum[1] = nums[1]
+        acum[2] = acum[0] + nums[2]
         
         for(i in 3 until size){
-            acumNumber[i] = max(acumNumber[i-2] + nums[i], acumNumber[i - 3] + nums[i])
-            result = max(result, acumNumber[i])
+            acum[i] = max(acum[i - 2] + nums[i], acum[i - 3] + nums[i])
         }
         
-        
-        return result
+        return max(acum[size - 1], acum[size - 2])
     }
 }
