@@ -1,28 +1,31 @@
 class Solution {
     fun wordPattern(pattern: String, s: String): Boolean {
-        val letterToWord = HashMap<Char, String>()
-        val wordToLetter = HashMap<String, Char>()
-
         val words = s.split(" ")
-        if(pattern.length != words.size) {
+        val wordToLetter = HashMap<String, Char>()
+        val letterToWord = HashMap<Char, String>()
+        
+        if(words.size != pattern.length) {
             return false
         }
-
-        words.forEachIndexed{ idx, word ->
-            if(letterToWord.contains(pattern[idx])){
-                val current = letterToWord.getOrDefault(pattern[idx], "")
-                if(current != word) return false
-            }
-
+        
+        val size = words.size
+        words.forEachIndexed { idx, word ->
             if(wordToLetter.contains(word)){
-                val current = wordToLetter.getOrDefault(word, ' ')
-                if(current != pattern[idx]) return false
+                if(wordToLetter.getOrDefault(word, " ") != pattern[idx]){
+                    return false
+                }
             }
-
-            letterToWord[pattern[idx]] = word
+            
+            if(letterToWord.contains(pattern[idx])){
+                if(letterToWord.getOrDefault(pattern[idx], ' ') != word) {
+                    return false
+                }
+            }
+            
             wordToLetter[word] = pattern[idx]
+            letterToWord[pattern[idx]] = word
         }
-
+        
         return true
     }
 }
