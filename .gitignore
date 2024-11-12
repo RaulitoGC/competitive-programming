@@ -6,3 +6,4 @@ t.*
 *.iml
 r.*
 interview-tips/*
+.idea
