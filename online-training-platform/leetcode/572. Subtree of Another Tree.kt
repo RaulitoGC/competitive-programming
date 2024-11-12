@@ -9,29 +9,47 @@
  * }
  */
 class Solution {
-
-
-    fun compare(root: TreeNode?, subRoot: TreeNode?): Boolean{
-        if(root != null && subRoot != null){
-            
-            if(root.`val` != subRoot.`val`) return false
-
-            if(compare(root.left, subRoot.left).not()) return false
-
-            if(compare(root.right, subRoot.right).not()) return false
-
-            return true
-
-        }
-        return root == null && subRoot == null
+    
+    fun executeComparison(root: TreeNode?, subRoot: TreeNode?): Boolean {
+        return root?.let{
+            if(subRoot == null){
+                return false
+            }
+            if(it.`val` == subRoot?.`val`){
+                val left = executeComparison(it.left, subRoot?.left)
+                val right = executeComparison(it.right, subRoot?.right)
+                (left && right)
+            } else {
+                false
+            }
+        } ?: (subRoot == null)
     }
-
+    
     fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
-        if(root != null && subRoot != null){
-            val comp = compare(root, subRoot)
-            return comp || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot)
+        var result = false
+        
+        val stack = ArrayDeque<TreeNode?>()
+        stack.addLast(root)
+        while(stack.isNotEmpty()) {
+            val current = stack.last()
+            stack.removeLast()
+            //println("val -> ${current?.`val`}  ---- ${subRoot?.`val`}")
+            if(current?.`val` == subRoot?.`val`){
+                val currentResult = executeComparison(current, subRoot)
+                //println("curren result $currentResult")
+                result = result || currentResult
+            }
+            
+            current?.left?.let{
+                stack.addLast(it)
+            }
+            
+            current?.right?.let{
+                stack.addLast(it)
+            }
         }
-
-        return false
+        
+        
+        return result
     }
 }
