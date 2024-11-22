@@ -8,6 +8,8 @@ class Solution {
         return "${min(first,last)}-${max(first,last)}"
     }
     
+    // Time O(1)
+    // space : O(n)
     fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
         
         dominoes.forEach{ 
